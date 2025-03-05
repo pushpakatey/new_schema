@@ -1,0 +1,28 @@
+name: CI/CD for MySQL to Azure
+
+on:
+  push:
+    branches:
+      - main  # Runs when code is pushed to the main branch
+
+jobs:
+  deploy:
+    runs-on: windows-latest  # Since you don't have Ubuntu
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Install MySQL Client
+        run: |
+          choco install mysql
+          mysql --version
+
+      - name: Deploy MySQL Scripts to Azure
+        env:
+          MYSQL_HOST: pushpak.database.windows.net
+          MYSQL_DATABASE: pushpak
+          MYSQL_USER: ${{ secrets.AZURE_SQL_USER }}
+          MYSQL_PASSWORD: ${{ secrets.AZURE_SQL_PASSWORD }}
+        run: |
+          mysql -h %MYSQL_HOST% -u %MYSQL_USER% -p%MYSQL_PASSWORD% %MYSQL_DATABASE% < sql_scripts/database_dump.sql

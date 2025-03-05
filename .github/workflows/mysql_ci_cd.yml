@@ -27,4 +27,5 @@ jobs:
         shell: cmd
         run: |
           echo "Connecting to Azure MySQL..."
-          mysql -h %MYSQL_HOST% -u %MYSQL_USER% -p%MYSQL_PASSWORD% %MYSQL_DATABASE% -e "SOURCE sql_scripts/database_dump.sql;"
+          mysql -h %MYSQL_HOST% -u %MYSQL_USER% -p%MYSQL_PASSWORD% %MYSQL_DATABASE% -e "SOURCE new_schema_amazon_review.sql;"
+

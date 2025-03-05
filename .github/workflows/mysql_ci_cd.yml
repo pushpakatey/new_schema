@@ -7,7 +7,7 @@ on:
 
 jobs:
   deploy:
-    runs-on: windows-latest  # Since you don't have Ubuntu
+    runs-on: windows-latest  # Use Windows runner
 
     steps:
       - name: Checkout Repository
@@ -24,5 +24,7 @@ jobs:
           MYSQL_DATABASE: pushpak
           MYSQL_USER: ${{ secrets.AZURE_SQL_USER }}
           MYSQL_PASSWORD: ${{ secrets.AZURE_SQL_PASSWORD }}
+        shell: cmd
         run: |
-          mysql -h %MYSQL_HOST% -u %MYSQL_USER% -p%MYSQL_PASSWORD% %MYSQL_DATABASE% < sql_scripts/database_dump.sql
+          echo "Connecting to Azure MySQL..."
+          mysql -h %MYSQL_HOST% -u %MYSQL_USER% -p%MYSQL_PASSWORD% %MYSQL_DATABASE% -e "SOURCE sql_scripts/database_dump.sql;"

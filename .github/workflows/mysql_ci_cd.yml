@@ -21,7 +21,7 @@ jobs:
       - name: Deploy MySQL Scripts to Azure
         env:
           MYSQL_HOST: pushpak.database.windows.net
-          MYSQL_DATABASE: pushpak
+          MYSQL_DATABASE: pushpak (pushpak/pushpak)
           MYSQL_USER: ${{ secrets.AZURE_SQL_USER }}
           MYSQL_PASSWORD: ${{ secrets.AZURE_SQL_PASSWORD }}
         shell: cmd
